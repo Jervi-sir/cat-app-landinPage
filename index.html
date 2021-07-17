@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        #set-height {
+            display: block;
+        }
+        
+        #v0 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+        
+        p font-family helvetica {
+            font-size: 24px;
+        }
+        
+        section {
+            z-index: 1;
+            position: relative;
+        }
+        
+        .content {
+            position: sticky;
+            position: -webkit-sticky;
+            width: 100%;
+            top: 33.3%;
+        }
+        
+        h1 {
+            font-size: 3em;
+            background-color: white;
+            display: inline-block;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 0;
+        }
+        
+        p {
+            font-size: 1.5em;
+        }
+        
+        section:nth-of-type(1) {
+            height: 1600px;
+        }
+        
+        section:nth-of-type(2) {
+            height: 1200px;
+        }
+        
+        section:nth-of-type(3) {
+            height: 1000px;
+        }
+        
+        section:nth-of-type(4) {
+            height: 6000px;
+        }
+        
+        .entered {
+            -webkit-animation: text-focus-in 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+            animation: text-focus-in 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+        }
+        
+        @-webkit-keyframes text-focus-in {
+            0% {
+                -webkit-filter: blur(12px);
+                filter: blur(12px);
+                opacity: 0;
+            }
+            100% {
+                -webkit-filter: blur(0px);
+                filter: blur(0px);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes text-focus-in {
+            0% {
+                -webkit-filter: blur(12px);
+                filter: blur(12px);
+                opacity: 0;
+            }
+            100% {
+                -webkit-filter: blur(0px);
+                filter: blur(0px);
+                opacity: 1;
+            }
+        }
+    </style>
+    <section class="container">
+        <div class="content">
+            <h1>Thinking</h1>
+            <p>to adopt a pet that easy</p>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="content">
+            <h1>Step 1</h1>
+            <p>Start it like this..</p>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="content">
+            <h1>Step 1</h1>
+            <p>Start it like this..</p>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="content">
+            <h1>Step 1</h1>
+            <p>Start it like this..</p>
+        </div>
+    </section>
+
+
+
+    <div id="set-height"></div>
+    <video id="v0" tabindex="0" , autobuffer preload>
+        <source type='video/mp4;codecs="avc1.42E01E, mp4a.40.2"' src="presentation.mp4"></source>
+    </video>
+
+
+    <script src="sticky.js"></script>
+    <script>
+        var frameNumber = 0, // start video at frame 0
+            // lower numbers = faster playback
+            playbackConst = 500,
+            // get page height from video duration
+            setHeight = document.getElementById("set-height"),
+            // select video element         
+            vid = document.getElementById('v0');
+        // var vid = $('#v0')[0]; // jquery option
+
+        // dynamically set the page height according to video length
+        vid.addEventListener('loadedmetadata', function() {
+            setHeight.style.height = Math.floor(vid.duration) * playbackConst + "px";
+        });
+
+
+        // Use requestAnimationFrame for smooth playback
+        function scrollPlay() {
+            var frameNumber = window.pageYOffset / playbackConst;
+            vid.currentTime = frameNumber.toFixed(1);
+            window.requestAnimationFrame(scrollPlay);
+            console.log(vid.currentTime);
+        }
+
+        window.requestAnimationFrame(scrollPlay);
+
+        enterView({
+            selector: 'section',
+            enter: function(el) {
+                el.classList.add('entered')
+            }
+        });
+    </script>
+
+</body>
+
+</html>
